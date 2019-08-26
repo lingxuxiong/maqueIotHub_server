@@ -1,10 +1,12 @@
-var mqtt = require('mqtt')
-var client = mqtt.connect('mqtt://127.0.0.1:1883', {
-    clientId: "mqtt_connection_identical_id",
+let constants = require('./constants');
+let mqtt = require('mqtt');
+
+var client = mqtt.connect(constants.MQTT_SERVER_URL, {
+    clientId: constants.CLIENT_UNIQUE_ID,
     clean: false
-})
+});
 
 client.on('connect', function(connAck) {
     console.log(`return code ${connAck.returnCode}, session present:${connAck.sessionPresent}`)
     client.end()
-})
+});
