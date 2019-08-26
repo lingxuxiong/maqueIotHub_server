@@ -1,9 +1,10 @@
 let constants = require('./constants');
 let mqtt = require('mqtt');
 
-var client = mqtt.connect(constants.MQTT_SERVER_URL, {
+var client = mqtt.connect(constants.MQTTS_SERVER_URL, {
     clientId: constants.CLIENT_UNIQUE_ID,
-    clean: false
+    clean: false,
+    rejectUnauthorized: false
 });
 
 client.on('connect', function(connAck) {
