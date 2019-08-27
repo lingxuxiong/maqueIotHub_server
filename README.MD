@@ -1,13 +1,13 @@
 ### Goal
-1. create an EMQ X based broker.
-2. create a MQTT based client which is able to publish message to the broker.
-3. create a MQTT based client which is able to subscribe to topics thru the broker.
-4. send and receive messages thru publisher -> broker(s) -> receiver.
-5. filter MQTT messages based on EMQX rule engine.
-6. republish filtered messages to a specified local server endpoint.
-7. print received messages to stdout.
-8. persist received messages to db.
-9. create a local HTTP server which serve to process the received MQTT messages.
+- [x] create an EMQ X based broker.
+- [x] create a MQTT based client which is able to publish message to the broker.
+- [x] create a MQTT based client which is able to subscribe to topics thru the broker.
+- [x] send and receive messages thru publisher -> broker(s) -> receiver.
+- [ ] filter MQTT messages based on EMQX rule engine.
+- [ ] republish filtered messages to a specified local server endpoint.
+- [ ] print received messages to stdout.
+- [ ] persist received messages to db.
+- [ ] create a local HTTP server which serve to process the received MQTT messages.
 
 ### Steps
 1. Install [EMQX](https://docs.emqx.io/docs/broker/v3/cn/install.html#macos) and start it
