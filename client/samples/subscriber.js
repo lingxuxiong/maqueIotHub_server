@@ -3,7 +3,7 @@ let mqtt = require('mqtt');
 
 var client = mqtt.connect(constants.MQTTS_SERVER_URL, {
     clientId: constants.SUBSCRIBER_ID,
-    clean: false,
+    clean: true,
     rejectUnauthorized: false
 });
 
