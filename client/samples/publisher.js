@@ -4,7 +4,9 @@ const mqtt = require('mqtt');
 var client = mqtt.connect(constants.MQTTS_SERVER_URL, {
     clientId: constants.PUBLISHER_ID,
     clean: false,
-    rejectUnauthorized: false
+    rejectUnauthorized: false,
+    username: 'userid_001',
+    password: 'd37d0c18fb94382f3934e4027ec1345fbfe27a5ff99c9b05542c0c7a6badf11d'
 });
 
 client.on('connect', function (connAck) {
