@@ -155,6 +155,14 @@ Or, if you don't want/need a background service you can just run:
 ➜  Downloads emqx start
 emqx v3.2.1 is started successfully!
 
+### Mosquitto
+- Installation https://mosquitto.org/download/
+  * brew install mosquitto
+- Start mosquitto
+  * mosquitto -c /usr/local/etc/mosquitto/mosquitto.conf, or
+  * brew services start mosquitto
+- documentation https://github.com/eclipse/mosquitto
+
 ### ExpressJS
 - installation https://expressjs.com/
 - get started https://expressjs.com/en/starter/installing.html
