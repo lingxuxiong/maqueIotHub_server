@@ -4,7 +4,7 @@ const CLIENT_UNIQUE_ID = 'client_id';
 const PUBLISHER_ID     = 'client_publisher_id';
 const SUBSCRIBER_ID    = 'client_subscriber_id';
 
-const TOPIC_VEHICLE_SPEED = '/vehicle/speed';
+const TOPIC_VEHICLE_SPEED = '/vehicle/device_id/state'
 const TOPIC_HALL       = '/neil/hall';
 const TOPIC_KITCHEN    = '/neil/kitchen';
 const TOPIC_ROOM1      = '/neil/room1';

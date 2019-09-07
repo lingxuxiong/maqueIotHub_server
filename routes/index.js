@@ -3,14 +3,12 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  console.log('__dirname:' + __dirname)
-  console.log('__filename:' + __filename)
   res.render('index', { title: 'Express' });
 });
 
 router.post('/', function(req, res) {
-  console.log('got post request to /')
-  res.send("ok")
+  console.log('got vehicle speeding:' + req.body.speed);
+  res.sendStatus(200);
 });
 
 router.put('/user', function(req, res) {
