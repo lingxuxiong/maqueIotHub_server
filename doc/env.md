@@ -12,6 +12,13 @@ https://docs.mongodb.com/manual/installation/#mongodb-community-edition-installa
    3. connect a mongo shell to begin using mongodb
       > mongo
 
+3. mongo shell commands
+- connect to mongo -> mongo
+- show databases -> show dbs
+- switch to some db -> use xxx
+- show collections under current db -> show collections
+- show records of collection -> db.devices.find()
+
 ### Redis
 1. install guide https://redis.io/download
  $ wget http://download.redis.io/releases/redis-5.0.5.tar.gz

@@ -48,13 +48,6 @@ function displayKittensByName() {
 
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
-console.log('connecting to test db.');
-mongoose.connect(
-    'mongodb://localhost/test',
-    {
-        useNewUrlParser: true
-    }
-);
 
 // add callbacks to db connection
 var db = mongoose.connection;
@@ -64,7 +57,15 @@ db.on('error', function connectionError(err) {
 db.once('open', function connectionDone() {
     console.log('connected to mongo test db');
     onConnectedToDB();
-})
+});
+
+console.log('connecting to test db.');
+mongoose.connect(
+    'mongodb://localhost/test',
+    {
+        useNewUrlParser: true
+    }
+);
 
 function onConnectedToDB() {
     // console.log('constructs db documents for the defined model');
