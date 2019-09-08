@@ -57,7 +57,7 @@ db.on('error', function connectionError(err) {
 db.once('open', function connectionDone() {
     console.log('connected to mongo test db');
     onConnectedToDB();
-})
+});
 
 console.log('connecting to test db.');
 mongoose.connect(

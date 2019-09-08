@@ -11,18 +11,23 @@ router.post('/', function (req, res) {
 
     var newDevice = new Device({
         product_name: productName,
-        deviceName: deviceName,
+        device_name: deviceName,
         secret: secret,
         broker_username: brokerUserName
     });
-
-    res.json({
-        product_name: productName,
-        deviceName: deviceName,
-        secret: secret,
-        broker_username: brokerUserName
+    newDevice.save(function (err, device) {
+        if (err) {
+            console.error(err);
+            res.send(err);
+        } else {
+            res.json({
+                product_name: productName,
+                deviceName: deviceName,
+                secret: secret,
+                broker_username: brokerUserName
+            });
+        }
     });
-
 });
 
 router.get('/', function (req, res) {

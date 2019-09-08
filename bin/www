@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('maqueiothub:server');
 var http = require('http');
+var mongoose = require('mongoose');
 
 /**
  * Get port from environment and store in Express.
@@ -88,3 +89,21 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+
+var dbName = 'iothub';
+var dbConn = mongoose.connection;
+dbConn.on('error', function onError(err) {
+  console.log(`failed to connect to db ${dbName}`);
+});
+dbConn.once('open', function connectionDone() {
+  console.log(`connected to mongo db ${dbName}`);
+})
+
+console.log(`connecting to db ${dbName}`);
+mongoose.connect(
+    `mongodb://localhost/${dbName}`,
+    {
+        useNewUrlParser: true
+    }
+);
