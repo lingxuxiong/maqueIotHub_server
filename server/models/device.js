@@ -1,6 +1,6 @@
-var Schema = require('mongoose');
+var mongoose = require('mongoose');
 
-const deviceSchema = new Schema({
+const deviceSchema = new mongoose.Schema({
     product_name: {
         type: String,
         required: true
@@ -23,4 +23,6 @@ const deviceSchema = new Schema({
 
 });
 
-module.exports = deviceSchema;
+var Device = mongoose.model('Device', deviceSchema);
+
+module.exports = Device;
