@@ -10,23 +10,35 @@ let heartbeatCounter;
 
 class IotDevice extends EventEmitter {
 
-    constructor(serverAddress = DEFAULT_MQTT_SERVER_ADDRESS) {
-        super();
-        this.serverAddress = serverAddress;
+    constructor({
+        serverAddress = DEFAULT_MQTT_SERVER_ADDRESS,
+        productName,
+        deviceName,
+        secret} = {}) {
+            super();
+            this.serverAddress = serverAddress;
+            this.productName = productName;
+            this.deviceName = deviceName;
+            this.secret = secret;
+            this.userName = `${productName}/${deviceName}`;
     }
 
-    connect() {        
+    connect() {
         let self = this;
+        console.log(`serverAddress:${this.serverAddress}, username:${this.userName}, password:${this.secret}`);
         this.client = mqtt.connect(this.serverAddress, {
-            rejectUnauthorized: false
+            rejectUnauthorized: false,
+            username: this.userName,
+            password: this.secret
         });
         this.client.on('connect', function (connAck) {
             console.log(`connect return code: ${connAck.returnCode}`);
-            self.emit('online');
-
-            heartbeatCounter = setInterval(() => {
-                self.emit('heartbeat');
-            }, 1000);
+            if (connAck.returnCode == 0) {
+                self.emit('online');    
+                heartbeatCounter = setInterval(() => {
+                    self.emit('heartbeat');
+                }, 1000);
+            }
         });
 
         this.client.on('message', function (_, data, pkg) {
