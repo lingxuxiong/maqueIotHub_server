@@ -1,4 +1,4 @@
-### Goal
+### Goals
 - [x] create an EMQ X based broker.
 - [x] create a MQTT based client which is able to publish message to the broker.
 - [x] create a MQTT based client which is able to subscribe to topics thru the broker.

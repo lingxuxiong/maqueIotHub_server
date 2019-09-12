@@ -42,12 +42,12 @@ redis> get foo
     - [ ] Node API documentation https://nodejs.org/api/
     - [x] The Art of Node https://github.com/maxogden/art-of-node
     - [ ] Node School: https://nodeschool.io/
-    - [ ] Stream Handbook https://github.com/substack/stream-handbook#introduction
+    - [x] Stream Handbook https://github.com/substack/stream-handbook#introduction
     - [x] Node style guide https://github.com/felixge/node-style-guide
     - [ ] An Introduction to libuv http://nikhilm.github.io/uvbook/introduction.html
     - [x] How to use module.exports in Node.js https://stackabuse.com/how-to-use-module-exports-in-node-js/
-    - [ ] Learn Node.js: A Beginner's Guide https://stackabuse.com/learn-node-js-a-beginners-guide/
-    - [ ] LEARN NODE (The best way to learn server-side JavaScript!) https://learnnode.com/ (video course)
+    - [x] Learn Node.js: A Beginner's Guide https://stackabuse.com/learn-node-js-a-beginners-guide/
+    - [x] LEARN NODE (The best way to learn server-side JavaScript!) https://learnnode.com/ (video course)
 3. Learn tips
     - execute node script from cmd line
     > node -pe "require.resolve('fs')"
