@@ -11,19 +11,14 @@
 
 'use strict';
 
-const MAX_HEART_BEATS_NUM = 10;
-
-const TEST_PRODUCT_NAME  = 'productX';
-const TEST_DEVICE_NAME   = 'UNjDnSn';
-const TEST_DEVICE_SECRET = 'SoKJ5mqH';
-const TEST_CLIENT_ID     = 'deviceId';
+require('dotenv').config();
 
 let IotDevice = require('../sdk/iot_device').IotDevice;
 let device = new IotDevice({
-    productName: TEST_PRODUCT_NAME,
-    deviceName: TEST_DEVICE_NAME,
-    secret: TEST_DEVICE_SECRET,
-    clientId: TEST_CLIENT_ID
+    productName: process.env.TEST_PRODUCT_NAME,
+    deviceName: process.env.TEST_DEVICE_NAME,
+    secret: process.env.TEST_DEVICE_SECRET,
+    clientId: process.env.TEST_CLIENT_ID
 });
 
 let heartbeat = 0;
@@ -35,8 +30,8 @@ device.on('online', function () {
 device.on('heartbeat', function () {
     heartbeat = heartbeat + 1;
     console.log(`heartbeat: ${heartbeat}`);
-    if (heartbeat === MAX_HEART_BEATS_NUM) {
-        console.log(`hit max heartbeat: ${MAX_HEART_BEATS_NUM}`);
+    if (heartbeat === process.env.MAX_HEART_BEATS_NUM) {
+        console.log(`hit max heartbeat: ${process.env.MAX_HEART_BEATS_NUM}`);
         device.disconnect();
     }
 });
