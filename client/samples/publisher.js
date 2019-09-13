@@ -1,8 +1,9 @@
-const constants = require('./constants');
+require('dotenv').config();
+
 const mqtt = require('mqtt');
 
-var client = mqtt.connect(constants.MQTTS_SERVER_URL, {
-    clientId: constants.PUBLISHER_ID,
+var client = mqtt.connect(process.env.MQTTS_SERVER_URL, {
+    clientId: process.env.PUBLISHER_ID,
     clean: false,
     rejectUnauthorized: false,
     username: 'userid_001',
@@ -14,7 +15,7 @@ client.on('connect', function (connAck) {
     if (connAck.returnCode == 0) {
         setInterval(() => {
             publishSpeed();
-        }, constants.REPORT_STATE_FREQUENCY_MS);        
+        }, process.env.REPORT_STATE_FREQUENCY_MS);        
     } else {
         console.log(`connection failed due to ${connAck.returnCode}`)
     }
@@ -33,7 +34,7 @@ function publishSpeed() {
     };
     console.log(JSON.stringify(message));
 
-    client.publish(constants.TOPIC_VEHICLE_SPEED, JSON.stringify(message), { qos: 1 }, function (error) {
+    client.publish(process.env.TOPIC_VEHICLE_SPEED, JSON.stringify(message), { qos: 1 }, function (error) {
         if (error == undefined) {
             console.log('publish finished');
         } else {

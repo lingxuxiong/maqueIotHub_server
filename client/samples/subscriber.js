@@ -1,8 +1,9 @@
-let constants = require('./constants');
+require('dotenv').config();
+
 let mqtt = require('mqtt');
 
-var client = mqtt.connect(constants.MQTTS_SERVER_URL, {
-    clientId: constants.SUBSCRIBER_ID,
+var client = mqtt.connect(process.env.MQTTS_SERVER_URL, {
+    clientId: process.env.SUBSCRIBER_ID,
     clean: true,
     rejectUnauthorized: false,
     username: 'userid_001',
@@ -14,7 +15,7 @@ client.on('connect', function(connAck) {
     if (connAck.returnCode == 0) {
         if (connAck.sessionPresent == false) {
             console.log('subscribing')
-            client.subscribe(constants.TOPIC_VEHICLE_SPEED, {
+            client.subscribe(process.env.TOPIC_VEHICLE_SPEED, {
                 qos: 1
             }, function(err, granted) {
                 if (err != undefined) {

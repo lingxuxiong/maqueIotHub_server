@@ -88,22 +88,30 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+
+  connectToDB();
+  initDotenv();
 }
 
+function connectToDB() {
+  var dbName = 'iothub';
+  var dbConn = mongoose.connection;
+  dbConn.on('error', function onError(err) {
+    console.log(`failed to connect to db ${dbName}`);
+  });
+  dbConn.once('open', function connectionDone() {
+    console.log(`connected to mongo db ${dbName}`);
+  })
+  
+  console.log(`connecting to db ${dbName}`);
+  mongoose.connect(
+      `mongodb://localhost/${dbName}`,
+      {
+          useNewUrlParser: true
+      }
+  );
+}
 
-var dbName = 'iothub';
-var dbConn = mongoose.connection;
-dbConn.on('error', function onError(err) {
-  console.log(`failed to connect to db ${dbName}`);
-});
-dbConn.once('open', function connectionDone() {
-  console.log(`connected to mongo db ${dbName}`);
-})
-
-console.log(`connecting to db ${dbName}`);
-mongoose.connect(
-    `mongodb://localhost/${dbName}`,
-    {
-        useNewUrlParser: true
-    }
-);
+function initDotenv() {
+  require('dotenv').config();
+}

@@ -1,8 +1,9 @@
-let constants = require('./constants');
+require('dotenv').config();
+
 let mqtt = require('mqtt');
 
-var client = mqtt.connect(constants.MQTTS_SERVER_URL, {
-    clientId: constants.CLIENT_UNIQUE_ID,
+var client = mqtt.connect(process.env.MQTTS_SERVER_URL, {
+    clientId: process.env.CLIENT_UNIQUE_ID,
     clean: false,
     rejectUnauthorized: false
 });

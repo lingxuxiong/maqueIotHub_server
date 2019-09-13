@@ -60,8 +60,8 @@ Subscribed (mid: 1): 0
 
 5. connect mqtt broker with new credentials
 <pre>
-var client = mqtt.connect(constants.MQTTS_SERVER_URL, {
-    clientId: constants.SUBSCRIBER_ID,
+var client = mqtt.connect(process.env.MQTTS_SERVER_URL, {
+    clientId: process.env.SUBSCRIBER_ID,
     clean: true,
     rejectUnauthorized: false,
     username: 'userid_001',

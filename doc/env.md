@@ -182,3 +182,5 @@ emqx v3.2.1 is started successfully!
 - npm package https://docs.npmjs.com/files/package.json
 - npm config https://docs.npmjs.com/cli/config
 
+### Architecture
+- [ ] The twelve-factor App https://12factor.net/
