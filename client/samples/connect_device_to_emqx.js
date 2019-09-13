@@ -11,7 +11,7 @@
 
 'use strict';
 
-const MAX_HEART_BEATS_NUM = 3;
+const MAX_HEART_BEATS_NUM = 30;
 
 const TEST_PRODUCT_NAME  = 'productX';
 const TEST_DEVICE_NAME   = 'UNjDnSn';

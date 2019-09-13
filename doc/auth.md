@@ -71,3 +71,16 @@ var client = mqtt.connect(constants.MQTTS_SERVER_URL, {
 
 6. open/close ACL for publish and subscribe
 auth.mongo.acl_query = off
+
+7. create mongo indexes
+<pre>
+use iothub
+db.devices.createIndex({
+    "product_name": 1,
+    "device_name": 1
+}, {unique: true})
+
+db.devices.createIndex({
+    "broker_username": 1
+})
+</pre>

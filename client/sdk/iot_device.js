@@ -25,7 +25,7 @@ class IotDevice extends EventEmitter {
 
     connect() {
         let self = this;
-        console.log(`serverAddress:${this.serverAddress}, username:${this.userName}, password:${this.secret}`);
+        //console.log(`serverAddress:${this.serverAddress}, username:${this.userName}, password:${this.secret}`);
         this.client = mqtt.connect(this.serverAddress, {
             rejectUnauthorized: false,
             username: this.userName,
@@ -37,7 +37,7 @@ class IotDevice extends EventEmitter {
                 self.emit('online');    
                 heartbeatCounter = setInterval(() => {
                     self.emit('heartbeat');
-                }, 1000);
+                }, 3000);
             }
         });
 
