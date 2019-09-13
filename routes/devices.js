@@ -25,6 +25,27 @@ router.post('/', function (req, res) {
     });
 });
 
+router.get('/:productName/:deviceName', function (req, res) {
+    var productName = req.params.productName;
+    var deviceName = req.params.deviceName;
+    //console.log(`productName: ${productName}, deviceName:${deviceName}`);
+
+    Device.findOne({
+        "product_name": productName,
+        "device_name": deviceName
+    }, function (err, device) {
+        if (err) {
+            res.send(err);
+        } else {
+            if (device != null) {
+                res.send(device.toJSONObject());
+            } else {
+                res.status(404).json({error: "Not Found"});
+            }
+        }
+    });
+});
+
 router.get('/', function (req, res) {
     console.log('fetch all device');
     res.send('ok');
