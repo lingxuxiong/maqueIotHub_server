@@ -14,6 +14,7 @@ class IotDevice extends EventEmitter {
         serverAddress = DEFAULT_MQTT_SERVER_ADDRESS,
         productName,
         deviceName,
+        clientId,
         secret} = {}) {
             super();
             this.serverAddress = serverAddress;
@@ -21,6 +22,7 @@ class IotDevice extends EventEmitter {
             this.deviceName = deviceName;
             this.secret = secret;
             this.userName = `${productName}/${deviceName}`;
+            this.clientId = clientId != null ? `${this.userName}/${clientId}` : this.userName;
     }
 
     connect() {
@@ -28,6 +30,7 @@ class IotDevice extends EventEmitter {
         //console.log(`serverAddress:${this.serverAddress}, username:${this.userName}, password:${this.secret}`);
         this.client = mqtt.connect(this.serverAddress, {
             rejectUnauthorized: false,
+            clientId: this.clientId,
             username: this.userName,
             password: this.secret
         });
