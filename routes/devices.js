@@ -20,12 +20,7 @@ router.post('/', function (req, res) {
             console.error(err);
             res.send(err);
         } else {
-            res.json({
-                product_name: productName,
-                deviceName: deviceName,
-                secret: secret,
-                broker_username: brokerUserName
-            });
+            res.json(newDevice.toJSONObject());
         }
     });
 });

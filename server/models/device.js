@@ -23,6 +23,14 @@ const deviceSchema = new mongoose.Schema({
 
 });
 
+deviceSchema.methods.toJSONObject = function () {
+    return {
+        product_name: this.product_name,
+        device_name: this.device_name,
+        secret: this.secret
+    }
+}
+
 var Device = mongoose.model('Device', deviceSchema);
 
 module.exports = Device;

@@ -11,15 +11,15 @@
 
 'use strict';
 
-const MAX_HEART_BEATS_NUM = 30;
+const MAX_HEART_BEATS_NUM = 10;
 
 const TEST_PRODUCT_NAME  = 'productX';
 const TEST_DEVICE_NAME   = 'UNjDnSn';
 const TEST_DEVICE_SECRET = 'SoKJ5mqH';
 const TEST_CLIENT_ID     = 'deviceId';
 
-let devices = require('../sdk/iot_device');
-let device = new devices.IotDevice({
+let IotDevice = require('../sdk/iot_device').IotDevice;
+let device = new IotDevice({
     productName: TEST_PRODUCT_NAME,
     deviceName: TEST_DEVICE_NAME,
     secret: TEST_DEVICE_SECRET,
