@@ -40,15 +40,28 @@ router.get('/:productName/:deviceName', function (req, res) {
             if (device != null) {
                 res.send(device.toJSONObject());
             } else {
-                res.status(404).json({error: "Not Found"});
+                res.status(404).json({error: "Not found"});
             }
         }
     });
 });
 
-router.get('/', function (req, res) {
-    console.log('fetch all device');
-    res.send('ok');
+router.get('/:productName', function (req, res) {
+    Device.find({
+        "product_name": req.params.productName
+    }, function (err, devices) {
+        if (err) {
+            res.send(err);
+        } else {
+            if (devices != null && devices.length > 0) {
+                res.json(devices.map(function (device) {
+                    return device.toJSONObject();
+                }));
+            } else {
+                res.status(404).json({error: "Not found"});
+            }
+        }
+    });
 });
 
 module.exports = router;
