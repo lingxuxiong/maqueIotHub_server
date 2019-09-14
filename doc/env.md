@@ -137,9 +137,8 @@ https://www.rabbitmq.com/getstarted.html
 
 
 ### EMQ X
-Installation: 
-https://docs.emqx.io/docs/broker/v3/cn/install.html#macos
-https://www.emqx.io/downloads#broker
+- [Installation](https://docs.emqx.io/docs/broker/v3/cn/install.html#macos)
+- [Download](https://www.emqx.io/downloads#broker)
 
 Install steps:
 - $ brew tap emqx/emqx
@@ -163,24 +162,27 @@ Or, if you don't want/need a background service you can just run:
 emqx v3.2.1 is started successfully!
 
 ### Mosquitto
-- Installation https://mosquitto.org/download/
+- [Installation](https://mosquitto.org/download/)
   * brew install mosquitto
 - Start mosquitto
   * mosquitto -c /usr/local/etc/mosquitto/mosquitto.conf, or
   * brew services start mosquitto
-- documentation https://github.com/eclipse/mosquitto
+- [documentation](https://github.com/eclipse/mosquitto)
 
 ### ExpressJS
-- installation https://expressjs.com/
-- get started https://expressjs.com/en/starter/installing.html
-- express best practice: Production best practices: performance and reliability. https://expressjs.com/en/advanced/best-practice-performance.html
+- [installation](https://expressjs.com/)
+- [get started](https://expressjs.com/en/starter/installing.html)
+- [express best practice: Production best practices: performance and reliability.](https://expressjs.com/en/advanced/best-practice-performance.html)
 
 ### NPM
-- npm landing page https://www.npmjs.com/
-- npm CLI https://docs.npmjs.com/cli-documentation/cli
-- npm semver https://docs.npmjs.com/misc/semver
-- npm package https://docs.npmjs.com/files/package.json
-- npm config https://docs.npmjs.com/cli/config
+- [npm landing page](https://www.npmjs.com/)
+- [npm CLI](https://docs.npmjs.com/cli-documentation/cli)
+- [npm semver](https://docs.npmjs.com/misc/semver)
+- [npm package](https://docs.npmjs.com/files/package.json)
+- [npm config](https://docs.npmjs.com/cli/config)
 
 ### Architecture
-- [ ] The twelve-factor App https://12factor.net/
+- [ ] [The twelve-factor App](https://12factor.net/)
+
+### References
+- [x] [Building a Simple CRUD Application with Express and MongoDB](https://zellwk.com/blog/crud-express-mongodb/) 
