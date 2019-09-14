@@ -27,7 +27,12 @@ class IotDevice extends EventEmitter {
 
     connect() {
         let self = this;
-        // console.log(`serverAddress:${this.serverAddress}, username:${this.userName}, password:${this.secret}`);
+        // console.log(`
+        // serverAddress:${this.serverAddress}, 
+        // clientId:${this.clientId},
+        // username:${this.userName}, 
+        // password:${this.secret}`);
+
         this.client = mqtt.connect(this.serverAddress, {
             rejectUnauthorized: false,
             clientId: this.clientId,

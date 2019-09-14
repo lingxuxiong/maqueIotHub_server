@@ -14,6 +14,7 @@
 require('dotenv').config();
 
 let IotDevice = require('../sdk/iot_device').IotDevice;
+
 let device = new IotDevice({
     productName: process.env.TEST_PRODUCT_NAME,
     deviceName: process.env.TEST_DEVICE_NAME,
@@ -21,17 +22,18 @@ let device = new IotDevice({
     clientId: process.env.TEST_CLIENT_ID
 });
 
-let heartbeat = 0;
+let heartbeatCounter = 0;
+let MAX_HEART_BEATS_NUM = process.env.MAX_HEART_BEATS_NUM;
 
 device.on('online', function () {
     console.log('device gets online');
 })
 
 device.on('heartbeat', function () {
-    heartbeat = heartbeat + 1;
-    console.log(`heartbeat: ${heartbeat}`);
-    if (heartbeat === process.env.MAX_HEART_BEATS_NUM) {
-        console.log(`hit max heartbeat: ${process.env.MAX_HEART_BEATS_NUM}`);
+    heartbeatCounter = heartbeatCounter + 1;
+    console.log(`heartbeat: ${heartbeatCounter}`);
+    if (heartbeatCounter == MAX_HEART_BEATS_NUM) {
+        console.log(`hit max heartbeat: ${MAX_HEART_BEATS_NUM}`);
         device.disconnect();
     }
 });
