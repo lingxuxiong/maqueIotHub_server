@@ -3,6 +3,11 @@ const router = express.Router();
 const shortid = require('shortid');
 const Device = require('../server/models/device');
 
+router.use(function logTime(req, _, next) {
+    console.log(`handling new device request, original url: ${req.originalUrl}`);
+    next();
+});
+
 router.post('/', function (req, res) {
     var productName = req.body.product_name;
     var deviceName = shortid.generate();

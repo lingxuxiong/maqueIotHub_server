@@ -173,6 +173,11 @@ emqx v3.2.1 is started successfully!
 - [installation](https://expressjs.com/)
 - [get started](https://expressjs.com/en/starter/installing.html)
 - [express best practice: Production best practices: performance and reliability.](https://expressjs.com/en/advanced/best-practice-performance.html)
+- [Express routing](https://expressjs.com/en/guide/routing.html)
+- [Path-to-RegExp](https://www.npmjs.com/package/path-to-regexp)
+- [Express Route Tester](http://forbeslindesay.github.io/express-route-tester/)
+- [Using middleware](https://expressjs.com/en/guide/using-middleware.html)
+- [Error Handling](https://expressjs.com/en/guide/error-handling.html)
 
 ### NPM
 - [npm landing page](https://www.npmjs.com/)
