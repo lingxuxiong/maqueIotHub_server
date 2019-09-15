@@ -15,7 +15,7 @@ const req = http.request({
     res.on('data', function onReceivedJWTToken(data) {
         var token = JSON.parse(data);
         var userName = token.userName;
-        var password = token.token;
+        var password = token.password;
         connectToMqttServer(userName, password);
     }).on('error', function (err) {
         console.error(err);
@@ -28,24 +28,32 @@ function connectToMqttServer(userName, password) {
         username: userName,
         password: password,
         rejectUnauthorized: false
-    }, function onConnectResult(err, connAck) {
-        if (err) {
-            console.error(err);
-        } else {
-            console.log(connAck);
-            if (connAck.returnCode == 0) {                
-                client.subscribe(
-                    [
-                        '$SYS/brokers/+/clients/connected',
-                        '$SYS/brokers/+/clients/disconnected'
-                    ], function(err, granted) {
-                        if (err != undefined) {
-                            console.log('subscribe failed with error:' + err)
-                        } else {
-                            console.log(`successfully subscribed topic ${granted[0].topic}, qos: ${granted[0].qos}}`)
+    });
+
+    client.on('connect', function (connAck) {
+        console.log(connAck);
+        if (connAck.returnCode == 0) {                
+            client.subscribe(
+                [
+                    '$SYS/brokers/+/clients/connected',
+                    '$SYS/brokers/+/clients/disconnected'
+                ], function(err, granted) {
+                    if (err != undefined) {
+                        console.log('subscribe failed with error:' + err)
+                    } else {
+                        for (var i = 0; i < granted.length; i++) {
+                            console.log(`successfully subscribed to topic: ${granted[i].topic}`);
                         }
-                    });
-            }
+                    }
+                });
         }
+    });
+
+    client.on('message', function (topic, message, _) {
+        console.log(`received message ${message} on topic ${topic}`);
+    });
+
+    client.on('error', function (err) {
+        console.error(err);
     });
 }
