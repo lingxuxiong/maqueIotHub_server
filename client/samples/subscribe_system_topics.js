@@ -58,7 +58,7 @@ function connectToMqttServer(userName, password) {
         var cid = msgJson.clientid;
         var disconnected = topic.endsWith('disconnected');
         if (disconnected) {
-            console.log(`device(${cid}) disconnected`);
+            console.log(`device(${cid}) disconnected for reason: ${msgJson.reason}`);
         } else {
             console.log(`device(${cid}) connected`);
         }
