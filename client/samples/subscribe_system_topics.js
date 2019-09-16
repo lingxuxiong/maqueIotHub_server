@@ -24,6 +24,7 @@ const req = http.request({
 req.end();
 
 function connectToMqttServer(userName, password) {
+    console.log(`userName:${userName}, password:${password}`);
     const client = mqtt.connect(process.env.MQTTS_SERVER_URL, {
         username: userName,
         password: password,
@@ -35,8 +36,10 @@ function connectToMqttServer(userName, password) {
         if (connAck.returnCode == 0) {                
             client.subscribe(
                 [
-                    '$SYS/brokers/+/clients/connected',
-                    '$SYS/brokers/+/clients/disconnected'
+                    '$SYS/brokers/+/clients/+/+/connected',
+                    '$SYS/brokers/+/clients/+/+/+/connected',
+                    '$SYS/brokers/+/clients/+/+/disconnected',
+                    '$SYS/brokers/+/clients/+/+/+/disconnected'
                 ], function(err, granted) {
                     if (err != undefined) {
                         console.log('subscribe failed with error:' + err)
@@ -50,7 +53,15 @@ function connectToMqttServer(userName, password) {
     });
 
     client.on('message', function (topic, message, _) {
-        console.log(`received message ${message} on topic ${topic}`);
+        console.log(`received message ${message.toString()} on topic ${topic}`);
+        var msgJson = JSON.parse(message);
+        var cid = msgJson.clientid;
+        var disconnected = topic.endsWith('disconnected');
+        if (disconnected) {
+            console.log(`device(${cid}) disconnected`);
+        } else {
+            console.log(`device(${cid}) connected`);
+        }
     });
 
     client.on('error', function (err) {
