@@ -107,7 +107,8 @@ function connectToDB() {
   mongoose.connect(
       `mongodb://localhost/${dbName}`,
       {
-          useNewUrlParser: true
+          useNewUrlParser: true,
+          useFindAndModify: false
       }
   );
 }
