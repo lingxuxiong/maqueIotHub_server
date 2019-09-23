@@ -38,7 +38,7 @@ function persistDeviceConnectionEvent(connection, event) {
         connected: connected
     }, function (err, device) {
         if (err == null && device == null) {
-            console.log(`save ${connected} event`);
+            console.log(`saved ${connected} event`);
             new Connection({
                 client_id: event.client_id,
                 user_name: event.username,
@@ -58,17 +58,10 @@ function persistDeviceConnectionEvent(connection, event) {
             });
         } else if (device != null) {
             console.log(`updated ${connection} event`);
-            device.updateOne({
-                connected: connected
-            }, function (err, _) {
-                if (err) {
-                    console.log(`failed to update ${connection} event with error: ${err}`);
-                }
-            });
         } else {
             console.log(`record query error ${err} for device id ${clientId}`);
         }
-    });
+    }).exec();
 }
 
 module.exports = router;
