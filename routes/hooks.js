@@ -8,7 +8,11 @@ router.post('/', function (req, res, _) {
     var connection = splits[1];
     console.log(`${event} ${connection}`);
     if (event == 'client') {
-        Device.updateConnection(connection, req.body);
+        if (connection == 'connected') {
+            Device.onDeviceConnected(req.body);
+        } else {
+            Device.onDeviceDisconnected(req.body);
+        }
     }
     
     res.status(200).send('ok');
