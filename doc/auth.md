@@ -84,3 +84,28 @@ db.devices.createIndex({
     "broker_username": 1
 })
 </pre>
+
+### User name and password auth
+- Dashboard + Curl
+1. Create appID and appSecret thru dashboard
+user:pwd -> 42977a2f31e73:MjkwMDYwNjQ5ODc2MDIxMTQ3ODE3MzM3MTgxMTg4MjU5ODE
+2. Run CURL command to create auth user
+<pre>
+curl -v 
+--basic -u 42977a2f31e73:MjkwMDYwNjQ5ODc2MDIxMTQ3ODE3MzM3MTgxMTg4MjU5ODE 
+-X POST http://localhost:8080/api/v3/auth_username 
+-d '{ "username":"neil", "password":"pwd" }'
+</pre>
+
+- CLI
+1. add new user with [SHA256](https://www.liavaag.org/English/SHA-Generator/) hashed password
+emqx_ctl users add neil 6cd4c9c389b460a1f60357bebdec27a788c4abbf1aa3dead4d3c0cfd0cebea2a
+2. list available users to confirm the user was created
+emqx_ctl users list
+3. mosquitto_sub to receive system-wide topic messages
+<pre>
+mosquitto_sub -h 127.0.0.1 -u neil -P 6cd4c9c389b460a1f60357bebdec27a788c4abbf1aa3dead4d3c0cfd0cebea2a  -t '$SYS/brokers/#'  -d
+</pre>
+
+- [EMQX Auth Username](https://github.com/emqx/emqx-auth-username)
+- [EMQX_AUTH_USERNAME 使用指南](https://www.emqx.io/cn/blog/23)
