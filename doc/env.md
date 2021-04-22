@@ -136,30 +136,109 @@ RabbitMQ Tutorials
 https://www.rabbitmq.com/getstarted.html
 
 
-### EMQ X
-- [Installation](https://docs.emqx.io/docs/broker/v3/cn/install.html#macos)
-- [Download](https://www.emqx.io/downloads#broker)
+# EMQ X
+## Install and run in docker
+Follow the [install](https://docs.emqx.io/en/broker/v4.3/getting-started/install.html) guide to install and run EMQX.
+- Download docker image
+```
+docker pull emqx/emqx:4.2.11
+```
+- Start EMQX container
+```
+docker run -d --name emqx -p 1883:1883 -p 8081:8081 -p 8083:8083 -p 8084:8084 -p 8883:8883 -p 18083:18083 emqx/emqx:4.2.11
+```
+in case of starting the container end up with a ["docker name conflict"](https://stackoverflow.com/questions/31676155/docker-error-response-from-daemon-conflict-already-in-use-by-container) error, which means the container with the specified name has existed, then move on to start it with
+```
+docker start -i <container ID>
+```
+for container id, run following command to extract it 
+```
+docker ps -a | grep 'emqx/emqx' | awk '{print $1}'
+```
+to enter container shell, run following command
+```
+docker exec -it c58142f7fc7f  /bin/sh
+```
+to check running container status
+```
+docker ps
+```
 
-Install steps:
-- $ brew tap emqx/emqx
-- $ brew install emqx
+In addition, EMQX can be started from Docker Desktop. Just navigate to the dashboad screen and click on the target container / App.
 
-Start emqx
-- $ emqx start
-> emqx 3.1.0 is started successfully!
-- brew services start emqx/emqx/emqx
-- $ emqx_ctl status
-> Node 'emqx@127.0.0.1' is started emqx v3.1.0 is running
+## Install and run in dev machine
+```
+brew tap emqx/emqx                 # Add tap of EMQ X Broker
+brew install emqx                  # install 
+emqx start                         # start
+emqx stop                          # stop
+brew uninstall emqx                # uninstall
+brew services start emqx/emqx/emqx # have launchd start emqx now and restart at login
+emqx_ctl status                    # check emqx status
+```
 
-==> mkdir -p /usr/local/Cellar/emqx/3.2.2/data/configs
-==> Caveats
-To have launchd start emqx/emqx/emqx now and restart at login:
-  brew services start emqx/emqx/emqx
-Or, if you don't want/need a background service you can just run:
-  emqx
+useful commands regarding `emqx_ctl`
+```
+emqx_ctl help
+emqx_ctl listeners
+```
 
-➜  Downloads emqx start
-emqx v3.2.1 is started successfully!
+in case of [ulimit](https://www.geeksforgeeks.org/ulimit-soft-limits-and-hard-limits-in-linux/) warning when running `emqx` command, change the limit of file descriptors from 256 to 1024 as suggested.
+```
+ulimit -n 1024
+```
+
+check emqx status
+```
+➜  code emqx start
+EMQ X Broker 4.2.0 is started successfully!
+➜  code emqx_ctl status
+Node 'emqx@127.0.0.1' not responding to pings.     // Not started, maybe in is starting 
+➜  code emqx start -v
+EMQ X Broker 4.2.0 is started successfully!
+➜  code emqx_ctl status
+Node 'emqx@127.0.0.1' is started                   // started
+emqx 4.2.0 is running
+```
+
+## EMQX Dashboard
+Once started, navigate to EMQX dashboard portal (http://localhost:18083/) to check the management features it provides, using the default
+```
+username: admin
+password: public
+```
+
+## EMQX [logs](https://docs.emqx.cn/broker/v4.3/getting-started/log.html)
+Log is convient way to inspect what's going on (or wrong) within the running software. So it's important to learn what's being logged and where they are logged to.
+
+Display log handlers
+```
+emqx_ctl log handlers list
+```
+outputs
+```
+LogHandler(id=ssl_handler, level=debug, destination=console, status=started)
+LogHandler(id=file, level=warning, destination=log/emqx.log, status=started)
+LogHandler(id=default, level=warning, destination=console, status=started)
+```
+Note that the log files resides in a log directory where emqx was installed, and the target log directory can be configured from the config file
+```
+# vim /usr/local/Cellar/emqx/4.2.0/etc/emqx.conf
+## Where to emit the logs.
+## Enable the console (standard output) logs.
+##
+## Value: off | file | console | both
+## - off: disable logs entirely
+## - file: write logs only to file
+## - console: write logs only to standard I/O
+## - both: write logs both to file and standard I/O
+log.to = both
+```
+
+monitoring log file:
+```
+tail -f -n 100 /usr/local/Cellar/emqx/4.2.0/log/emqx.log.1
+```
 
 ### Mosquitto
 - [Installation](https://mosquitto.org/download/)
