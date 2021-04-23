@@ -171,7 +171,10 @@ In addition, EMQX can be started from Docker Desktop. Just navigate to the dashb
 brew tap emqx/emqx                 # Add tap of EMQ X Broker
 brew install emqx                  # install 
 emqx start                         # start
+emqx console                       # start with Elang console
 emqx stop                          # stop
+emqx restart                       # restart
+emqx ping                          # check if the broker is alive
 brew uninstall emqx                # uninstall
 brew services start emqx/emqx/emqx # have launchd start emqx now and restart at login
 emqx_ctl status                    # check emqx status
@@ -181,6 +184,16 @@ useful commands regarding `emqx_ctl`
 ```
 emqx_ctl help
 emqx_ctl listeners
+```
+outputs for listening ports
+```
+listener on mqtt:ssl:8883              # external 
+listener on mqtt:tcp:0.0.0.0:1883      # external
+listener on mqtt:tcp:127.0.0.1:11883   # internal
+listener on http:dashboard:18083       # dashboard
+listener on http:management:8081       # ?
+listener on mqtt:ws:8083:8083          # websocket
+listener on mqtt:wss:8084:8084         # secure ws
 ```
 
 in case of [ulimit](https://www.geeksforgeeks.org/ulimit-soft-limits-and-hard-limits-in-linux/) warning when running `emqx` command, change the limit of file descriptors from 256 to 1024 as suggested.
@@ -235,9 +248,56 @@ Note that the log files resides in a log directory where emqx was installed, and
 log.to = both
 ```
 
+dynamically change default log level from warning to debug.
+```
+# debug < info < notice < warning < error < critical < alert < emergency
+emqx_ctl log set-level debug
+```
+
 monitoring log file:
 ```
-tail -f -n 100 /usr/local/Cellar/emqx/4.2.0/log/emqx.log.1
+tail -f -n 100 /usr/local/Cellar/emqx/4.2.0/log/emqx.log.1    # console log
+tail -f -n 100 /usr/local/Cellar/emqx/4.2.0/log/erlang.log.1  # backup of console log
+```
+
+## EMQX [Configs](https://docs.emqx.io/en/broker/v4.3/getting-started/config.html)
+
+- EMQX-wide configs
+```
+vim /usr/local/Cellar/emqx/4.2.0/etc/emqx.conf
+```
+**Allow/Deny anonymous authentication**
+
+Change the configs file (etc/emqx.conf) to changes configs as expected. For example: 
+```
+## Allow anonymous authentication by default if no auth plugins loaded.
+## Notice: Disable the option in production deployment!
+##
+## Value: true | false
+allow_anonymous = true
+```
+
+Configurable listening ports:
+```
+listener.tcp.external = 0.0.0.0:1883     # mqtt:tcp
+listener.tcp.internal = 127.0.0.1:11883  # mqtt:tcp
+listener.ssl.external = 8883             # mqtt:ssl
+listener.ws.external  = 8083             # mqtt:ws
+listener.wss.external = 8084             # mqtt:wss
+```
+
+- Plugins-wide configs
+```
+➜  ~ vim /usr/local/Cellar/emqx/4.2.0/etc/plugins/
+acl.conf.paho                emqx_auth_mysql.conf         emqx_lua_hook.conf           emqx_rule_engine.conf
+ekka.conf.example            emqx_auth_pgsql.conf         emqx_lwm2m.conf              emqx_sasl.conf
+ekka.config.example          emqx_auth_redis.conf         emqx_management.conf         emqx_sn.conf
+emqx_auth_clientid.conf      emqx_auth_username.conf      emqx_plugin_template.config  emqx_stomp.conf
+emqx_auth_http.conf          emqx_bridge_mqtt.conf        emqx_prometheus.conf         emqx_telemetry.conf
+emqx_auth_jwt.conf           emqx_coap.conf               emqx_psk_file.conf           emqx_web_hook.conf
+emqx_auth_ldap.conf          emqx_dashboard.conf          emqx_recon.conf
+emqx_auth_mnesia.conf        emqx_exproto.conf            emqx_reloader.conf
+emqx_auth_mongo.conf         emqx_extension_hook.conf     emqx_retainer.conf
 ```
 
 ### Mosquitto
